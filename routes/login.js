@@ -7,7 +7,7 @@ router.get("/", (req, res, next) => {
     const { username, password } = req.query;
 
     conn.query(
-      "SELECT * FROM users WHERE username = ? AND password = ?",
+      "SELECT id, username FROM users WHERE username = ? AND password = ?",
       [username, password],
       (error, result, field) => {
         conn.release();
@@ -18,7 +18,7 @@ router.get("/", (req, res, next) => {
             user: null,
           });
         }
-        console.log(result);
+
         if (result.length === 0) {
           return res.status(401).send({
             message: "Usuário ou senha inválidos",
