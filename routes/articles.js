@@ -26,4 +26,33 @@ router.get("/", (req, res, next) => {
   });
 });
 
+router.get("/:url", (req, res, next) => {
+  console.log(req.params.url);
+  mysql.getConnection((error, conn) => {
+    conn.query(
+      "SELECT * FROM articles WHERE url = ?",
+      [req.params.url],
+      (error, result, field) => {
+        conn.release();
+
+        if (error) {
+          return res.status(500).send({
+            error,
+          });
+        }
+
+        if (result.length === 0) {
+          return res.status(401).send({
+            message: "Não existem receitas cadastradas",
+          });
+        }
+
+        res.status(200).send({
+          revenue: result[0],
+        });
+      }
+    );
+  });
+});
+
 module.exports = router;
