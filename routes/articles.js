@@ -4,9 +4,7 @@ const mysql = require("../mysql").pool;
 
 router.get("/", (req, res, next) => {
   mysql.getConnection((error, conn) => {
-    const { userId } = req.query;
-
-    conn.query("SELECT * FROM articles", [userId], (error, result, field) => {
+    conn.query("SELECT * FROM articles", [], (error, result, field) => {
       conn.release();
 
       if (error) {
@@ -22,7 +20,7 @@ router.get("/", (req, res, next) => {
       }
 
       res.status(200).send({
-        revenues: result[0],
+        revenues: result,
       });
     });
   });
