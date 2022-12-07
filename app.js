@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const loginRoute = require("./routes/login");
 const userPreferencesRoute = require("./routes/user-preferences");
 const articlesRoute = require("./routes/articles");
+const reviewsRoute = require("./routes/reviews");
 
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -29,6 +30,7 @@ app.use((req, res, next) => {
 app.use("/login", loginRoute);
 app.use("/user-preferences", userPreferencesRoute);
 app.use("/articles", articlesRoute);
+app.use("/reviews", reviewsRoute);
 
 app.use((req, res, next) => {
   const error = new Error("Rota não encontrada");
