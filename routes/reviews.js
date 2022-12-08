@@ -18,12 +18,6 @@ router.get("/article/:articleId", (req, res, next) => {
           });
         }
 
-        if (result.length === 0) {
-          return res.status(401).send({
-            message: "Nenhuma avaliação encontrada",
-          });
-        }
-
         res.status(200).send({
           reviews: result,
         });
